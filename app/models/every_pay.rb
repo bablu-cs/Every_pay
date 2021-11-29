@@ -1,2 +1,0 @@
-class EveryPay < ApplicationRecord
-end

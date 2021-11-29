@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @stripe_payment.customer_id %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @stripe_payment.amount %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @stripe_payment.status %>
+</p>
+
+<%= link_to 'Edit', edit_stripe_payment_path(@stripe_payment) %> |
+<%= link_to 'Back', stripe_payments_path %>

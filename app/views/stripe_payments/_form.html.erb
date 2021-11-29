@@ -1,0 +1,32 @@
+<%= form_with(model: stripe_payment) do |form| %>
+  <% if stripe_payment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(stripe_payment.errors.count, "error") %> prohibited this stripe_payment from being saved:</h2>
+
+      <ul>
+        <% stripe_payment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :customer_id %>
+    <%= form.text_field :customer_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.text_field :amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

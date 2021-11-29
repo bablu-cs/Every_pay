@@ -1,0 +1,94 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Stripe Payments</h1>
+<!--
+<table>
+  <thead>
+    <tr>
+      <th>Customer</th>
+      <th>Amount</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stripe_payments.each do |stripe_payment| %>
+      <tr>
+        <td><%= stripe_payment.customer_id %></td>
+        <td><%= stripe_payment.amount %></td>
+        <td><%= stripe_payment.status %></td>
+        <td><%= link_to 'Show', stripe_payment %></td>
+        <td><%= link_to 'Edit', edit_stripe_payment_path(stripe_payment) %></td>
+        <td><%= link_to 'Destroy', stripe_payment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>-->
+<script src="https://js.stripe.com/v3/"></script>
+
+<br>
+<form action="/payment/charge" method="post" id="payment-form">
+  <div class="form-row">
+    
+    <div class="wallet_id">
+    Wallet_id :<input type="text" name="wallet_id" />
+    </div>
+  <br />
+    <div class="amount">
+    Amount :<input type="text" name="amount" />
+    </div>
+    <br />
+    <label for="card-element">
+      Credit or debit card
+    </label>
+    <div id="card-element">
+    </div>
+   
+    <div id="card-errors" role="alert"></div>
+  </div>
+
+  <button>Submit Payment</button>
+</form>
+
+<br />
+
+<script>
+var stripe = Stripe('pk_test_51Jyt87SG0QTZvhDzlqevaI4tWpQMUKWBVFpJFCP1e34wURaB9QIQCZCC620iZxjMGSR6aaalnen14kPC6tdpneTs00T1HmnFde');
+var elements = stripe.elements();
+var style = {
+  base: {
+    fontSize: '16px',
+    color: '#32325d',
+  },
+};
+var card = elements.create('card', {style: style});
+card.mount('#card-element');
+var form = document.getElementById('payment-form');
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  stripe.createToken(card).then(function(result) {
+    if (result.error) {
+      var errorElement = document.getElementById('card-errors');
+      errorElement.textContent = result.error.message;
+    } else {
+      stripeTokenHandler(result.token);
+    }
+  });
+});
+
+
+
+function stripeTokenHandler(token) {
+  var form = document.getElementById('payment-form');
+  var hiddenInput = document.createElement('input');
+  hiddenInput.setAttribute('type', 'hidden');
+  hiddenInput.setAttribute('name', 'stripeToken');
+  hiddenInput.setAttribute('value', token.id);
+  form.appendChild(hiddenInput);
+  form.submit();
+}
+</script>
+
+<!--<%= link_to 'New Stripe Payment', new_stripe_payment_path %> -->

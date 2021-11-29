@@ -10,17 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_29_062671) do
+ActiveRecord::Schema.define(version: 2021_11_25_134843) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "every_pays", force: :cascade do |t|
+  create_table "stripe_paymentgateways", force: :cascade do |t|
     t.string "status"
-    t.string "amount"
-    t.string "payment_reference"
+    t.text "response"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "stripe_payments", force: :cascade do |t|
+    t.decimal "customer_id"
+    t.string "amount"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.text "response"
   end
 
 end
