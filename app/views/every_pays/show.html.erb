@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @every_pay.status %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @every_pay.amount %>
+</p>
+
+<p>
+  <strong>Response:</strong>
+  <%= @every_pay.response %>
+</p>
+
+<%= link_to 'Edit', edit_every_pay_path(@every_pay) %> |
+<%= link_to 'Back', every_pays_path %>
